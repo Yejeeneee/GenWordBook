@@ -4,6 +4,8 @@ import pprint
 import requests
 from bs4 import BeautifulSoup
 import nltk
+import numpy as np
+from PIL import Image
 
 # nltk.download('punkt')
 # nltk.download('stopwords')
@@ -56,31 +58,36 @@ for i, sentence in enumerate(sentence_list):
     clean_filter_list = list(filter(lambda x: "'" not in x, len_filter_list))
     print('5 >>>>> {}'.format(clean_filter_list))
 
-    # 2-5. ('-')포함 된 Token 제거
-    clean_list = list(filter(lambda x : "-"not in x, len_filter_list))
+
+    # 2-5.('-')포함 된 Token 제거
+    clean_list = list(filter(lambda x: "-" not in x, clean_filter_list))
     print('6 >>>>>> {}'.format(clean_list))
     words.extend(clean_list)
-
-    print(words)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(words)
 
 ##################################
 # 3.빈도수 순으로 나열 및 시각화 #
 ##################################
+print('===========================================')
+# 전체 단어 수 출력
+print('Total word count:{}'.format(len(words)))
+
+# 중복 단어 제거 후 단어 수
+print('word count after removing duplicate words:{}'.format(len(list(set(words)))))
+
+# set()을 활용한 중복단어 제거
+# list  -> []
+# dict  -> {key : value}
+# tuple -> (a, b, c) == a, b, c
+# set   -> 집합(중복 된 단어 제거)
+
+# 중복 단어 제거 된 wordbook
+unique_words = sorted(list(set(words)))
+print(unique_words)
+
+# 빈도수가 높은 단어 1위~20위 출력
+text = nltk.Text(words, name='NMSC') #중복 제거 전 단어장 입력으로 사용
+#pprint.pprint(text.vocab().most_common(20))
 
 #########################################
 # 4.다음 영어사전 단어정보 수집 및 매칭 #
